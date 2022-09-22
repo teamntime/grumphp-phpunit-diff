@@ -64,7 +64,9 @@ class PHPUnitDiffRunnerTask extends AbstractExternalTask
     public function run(ContextInterface $context): TaskResultInterface
     {
         $config = $this->getConfig()->getOptions();
-        $this->functionLoader->loadClassNameTransformer($config['diff_locator']);
+        $projectRoot = $this->paths->getProjectDir();
+
+        $this->functionLoader->loadClassNameTransformer($projectRoot . $config['diff_locator']);
 
         $files = $context->getFiles()->path('src')->name('*.php')->toArray();
         $testFiles = [];
@@ -79,7 +81,7 @@ class PHPUnitDiffRunnerTask extends AbstractExternalTask
         $testSuiteName = 'ephimerical';
 
         $configPath = $this->xmlWriter->writeConfig(
-            $this->paths->getProjectDir(),
+            $projectRoot,
             $config['config_file'],
             $testSuiteName,
             $testFiles
