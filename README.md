@@ -20,7 +20,7 @@ str_replace, but you might opt for any other strategy.
 Install by running composer:
 
 ```bash
-$ composer require --dev TeamnTime/grumphp-phpunit-diff
+$ composer require --dev teamntime/grumphp-phpunit-diff
 ```
 
 Create a PHP file with your location function that have the following structure:
