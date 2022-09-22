@@ -1,0 +1,11 @@
+parameters:
+    level: 5
+    checkGenericClassInNonGenericObjectType: false
+
+    ignoreErrors:
+        - #ignore errors on magic method 'method()'
+            message: '#^Call to an undefined method [a-zA-Z0-9\\_\:\(\)|]+\:\:method\(\)#'
+            path: tests/
+        - #ignore errors on magic method 'expects()'
+            message: '#^Call to an undefined method [a-zA-Z0-9\\_\:\(\)|]+\:\:expects\(\)#'
+            path: tests/

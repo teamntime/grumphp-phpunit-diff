@@ -1,0 +1,13 @@
+grumphp:
+  process_timeout: 300
+  tasks:
+    phpcsfixer:
+      config: ./.php-cs-fixer.dist.php
+      config_contains_finder: true
+    phpstan:
+      memory_limit: '-1'
+    phpunit:
+      config_file: ./phpunit.xml.dist
+  testsuites:
+    git_pre_commit:
+      tasks: [ phpcsfixer, phpstan, phpunit ]
