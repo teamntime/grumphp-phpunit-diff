@@ -49,6 +49,9 @@ grumphp:
         always_execute: false # optional
         always_delete_generated_configs: false # optional: When the task fails, does it leave the generated PHPUnit files or not
         order: null # optional
+        
+    extensions:
+        - TeamnTime\GrumPHP\PHPUnitDiff\ExtensionLoader
 #...
 
 ```
