@@ -73,6 +73,7 @@ class PHPUnitDiffRunnerTask extends AbstractExternalTask
 
         /** @var SplFileInfo $file */
         foreach ($files as $file) {
+            /* @phpstan-ignore-next-line */
             $testFiles[] = transformClassToTest($file->getRelativePathname());
         }
 
