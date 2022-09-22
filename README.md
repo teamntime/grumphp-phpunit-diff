@@ -1,6 +1,6 @@
 # GrumPHP PHPUnit Diff Task
 
-Whoa, another PHPUnit task for GrumPHP? Well kind of.
+Whoa, another PHPUnit task for [GrumPHP](https://github.com/phpro/grumphp)? Well kind of.
 
 We at Team n Time run GrumPHP both on our development machines and on our CI servers. All of our PHPUnit test suites
 run on CI to ensure we didn't create a regression or broke something. You could opt to run your testsuites also locally
@@ -19,13 +19,13 @@ str_replace, but you might opt for any other strategy.
 
 Install by running composer:
 
-```
+```bash
 $ composer require --dev TeamnTime/grumphp-phpunit-diff
 ```
 
 Create a PHP file with your location function that have the following structure:
 
-```
+```php
 <?php
 
 namespace TeamnTime\GrumphpPhpunitDiff;
@@ -37,9 +37,11 @@ function transformClassToTest(string $changedClassName): ?string
 
 ```
 
+If you would like to see a more in-depth example, you can reference the [default implementation](https://github.com/teamntime/grumphp-phpunit-diff/blob/main/src/DefaultTransformFunction.php)
+
 Update your grumphp.yml file:
 
-```
+```yaml
 grumphp:
 
 #...
