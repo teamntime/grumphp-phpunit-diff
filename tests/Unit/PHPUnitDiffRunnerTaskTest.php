@@ -84,16 +84,16 @@ class PHPUnitDiffRunnerTaskTest extends TestCase
      * @test
      * @dataProvider processProvider
      */
-    public function it_can_successfully_run_on_commit(
+    public function it_can_run(
         ContextInterface $context,
         int $statusCode,
         string $output,
         string $errorOutput
     ): void {
         $config = [
-            'config_file' => './phpunit.xml',
+            'config_file' => '/phpunit.xml',
             'always_delete_generated_configs' => true,
-            'diff_locator' => './diff-locator.php',
+            'diff_locator' => '/diff-locator.php',
             'order' => null,
         ];
 
@@ -110,7 +110,7 @@ class PHPUnitDiffRunnerTaskTest extends TestCase
 
         $this->functionLoader->expects($this->once())
             ->method('loadClassNameTransformer')
-            ->with($config['diff_locator']);
+            ->with($projectRoot . $config['diff_locator']);
 
         $this->paths
             ->method('getProjectDir')
