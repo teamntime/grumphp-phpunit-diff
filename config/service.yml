@@ -1,0 +1,23 @@
+services:
+    TeamnTime\GrumPHP\PHPUnitDiff\XMLLoader:
+        class: TeamnTime\GrumPHP\PHPUnitDiff\XMLLoader
+
+    TeamnTime\GrumPHP\PHPUnitDiff\DiffLocatorFunctionLoader:
+        class: TeamnTime\GrumPHP\PHPUnitDiff\DiffLocatorFunctionLoader
+
+    TeamnTime\GrumPHP\PHPUnitDiff\XMLWriter:
+        class: TeamnTime\GrumPHP\PHPUnitDiff\XMLWriter
+        arguments:
+            - '@TeamnTime\GrumPHP\PHPUnitDiff\XMLLoader'
+            - '@grumphp.util.filesystem'
+
+    task.phpunitdiff:
+        class: TeamnTime\GrumPHP\PHPUnitDiff\PHPUnitDiffRunnerTask
+        arguments:
+            - '@process_builder'
+            - '@formatter.raw_process'
+            - '@GrumPHP\Configuration\GuessedPaths\Paths'
+            - '@TeamnTime\GrumPHP\PHPUnitDiff\XMLWriter'
+            - '@TeamnTime\GrumPHP\PHPUnitDiff\DiffLocatorFunctionLoader'
+        tags:
+            - { name: grumphp.task, task: phpunit_diff }

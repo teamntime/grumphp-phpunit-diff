@@ -3,26 +3,13 @@
 namespace TeamnTime\GrumPHP\PHPUnitDiff;
 
 use GrumPHP\Extension\ExtensionInterface;
-use GrumPHP\Util\Paths;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Reference;
 
 class ExtensionLoader implements ExtensionInterface
 {
-    public function load(ContainerBuilder $container): void
+    public function imports(): iterable
     {
-        $container->register(XMLLoader::class, XMLLoader::class);
-        $container->register(DiffLocatorFunctionLoader::class, DiffLocatorFunctionLoader::class);
-        $container->register(XMLWriter::class, XMLWriter::class)
-            ->addArgument(new Reference(XMLLoader::class))
-            ->addArgument(new Reference('grumphp.util.filesystem'));
+        $configDir = dirname(__DIR__) . '/config';
 
-        $container->register('task.phpunit_diff', PHPUnitDiffRunnerTask::class)
-            ->addArgument(new Reference('process_builder'))
-            ->addArgument(new Reference('formatter.raw_process'))
-            ->addArgument(new Reference(Paths::class))
-            ->addArgument(new Reference(XMLWriter::class))
-            ->addArgument(new Reference(DiffLocatorFunctionLoader::class))
-            ->addTag('grumphp.task', ['task' => 'phpunit_diff']);
+        yield $configDir.'/services.yaml';
     }
 }
