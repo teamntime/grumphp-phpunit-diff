@@ -13,7 +13,7 @@ class TestProcess extends Process
 
     public int $mockedStatusCode = 0;
 
-    public function start(?callable $callback = null, array $env = [])
+    public function start(?callable $callback = null, array $env = []): void
     {
         if ($this->isRunning()) {
             throw new RuntimeException('Process is already running.');

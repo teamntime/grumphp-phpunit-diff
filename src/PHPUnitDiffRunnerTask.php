@@ -7,6 +7,7 @@ use GrumPHP\Process\ProcessBuilder;
 use GrumPHP\Runner\TaskResult;
 use GrumPHP\Runner\TaskResultInterface;
 use GrumPHP\Task\AbstractExternalTask;
+use GrumPHP\Task\Config\ConfigOptionsResolver;
 use GrumPHP\Task\Context\ContextInterface;
 use GrumPHP\Util\Paths;
 use Symfony\Component\Finder\SplFileInfo;
@@ -26,7 +27,7 @@ class PHPUnitDiffRunnerTask extends AbstractExternalTask
         ProcessFormatterInterface $formatter,
         Paths $paths,
         XMLWriter $xmlWriter,
-        DiffLocatorFunctionLoader $functionLoader
+        DiffLocatorFunctionLoader $functionLoader,
     ) {
         parent::__construct($processBuilder, $formatter);
 
@@ -35,7 +36,7 @@ class PHPUnitDiffRunnerTask extends AbstractExternalTask
         $this->functionLoader = $functionLoader;
     }
 
-    public static function getConfigurableOptions(): OptionsResolver
+    public static function getConfigurableOptions(): ConfigOptionsResolver
     {
         $resolver = new OptionsResolver();
 
@@ -53,7 +54,9 @@ class PHPUnitDiffRunnerTask extends AbstractExternalTask
         $resolver->addAllowedTypes('always_delete_generated_configs', ['bool']);
         $resolver->addAllowedTypes('order', ['null', 'string']);
 
-        return $resolver;
+        return ConfigOptionsResolver::fromClosure(
+            static fn (array $options): array => $resolver->resolve($options)
+        );
     }
 
     public function canRunInContext(ContextInterface $context): bool
@@ -118,7 +121,7 @@ class PHPUnitDiffRunnerTask extends AbstractExternalTask
         ContextInterface $context,
         string $testSuiteName,
         string $configPath,
-        bool $alwaysDeleteGeneratedConfigs
+        bool $alwaysDeleteGeneratedConfigs,
     ): TaskResult {
         if ($process->isSuccessful() || $alwaysDeleteGeneratedConfigs) {
             $this->xmlWriter->removeConfig($configPath);
