@@ -16,7 +16,7 @@ services:
         arguments:
             - '@process_builder'
             - '@formatter.raw_process'
-            - '@GrumPHP\Configuration\GuessedPaths\Paths'
+            - '@GrumPHP\Util\Paths'
             - '@TeamnTime\GrumPHP\PHPUnitDiff\XMLWriter'
             - '@TeamnTime\GrumPHP\PHPUnitDiff\DiffLocatorFunctionLoader'
         tags:
