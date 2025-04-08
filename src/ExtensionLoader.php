@@ -8,8 +8,8 @@ class ExtensionLoader implements ExtensionInterface
 {
     public function imports(): iterable
     {
-        $configDir = dirname(__DIR__) . '/config';
+        $configDir = __DIR__ . '/../config';
 
-        yield $configDir.'/services.yaml';
+        yield $configDir . '/services.yaml';
     }
 }
