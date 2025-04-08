@@ -26,7 +26,7 @@ class XMLWriter
         string $existingConfig,
         string $testSuiteName,
         array $files,
-        string|int $suffix = null
+        string|int|null $suffix = null,
     ): string {
         $suffix = $suffix ?? time();
         $target = $projectRoot . '/phpunit_diff' . $suffix . '.xml';
